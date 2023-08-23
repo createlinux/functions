@@ -1,11 +1,18 @@
 {
-    "name": "createlinux/functions",
-    "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Createlinux\\Functions\\": "src/"
-        },
-        "files": ["src/Print.php"]
+  "name": "createlinux/helper",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Createlinux\\Helper\\": "src/"
     },
-    "require": {}
+    "files": [
+      "src/Output/print.php"
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.3"
+  },
+  "require": {
+    "ext-bcmath": "*"
+  }
 }
