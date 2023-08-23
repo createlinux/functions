@@ -1,0 +1,11 @@
+{
+    "name": "createlinux/functions",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Createlinux\\Functions\\": "src/"
+        },
+        "files": ["src/Print.php"]
+    },
+    "require": {}
+}
