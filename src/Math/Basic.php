@@ -77,7 +77,7 @@ class Basic
     /**
      * @throws Exception
      */
-    public static function div(int $scale, array|int|float ...$number)
+    protected static function div(int $scale, array|int|float ...$number)
     {
         self::checkExtension();
         $numbers = func_get_args();
