@@ -6,7 +6,8 @@
       "Createlinux\\Helper\\": "src/"
     },
     "files": [
-      "src/Output/print.php"
+      "src/Output/print.php",
+      "src/Output/array.php"
     ]
   },
   "require-dev": {
