@@ -16,7 +16,7 @@ class Regular
     /**
      * @return bool 是否有中文
      */
-    public function has_chinese(): bool
+    public function hasChinese(): bool
     {
         $pattern = '/[\x{4e00}-\x{9fa5}]+/u';
         return preg_match($pattern, $this->string);
