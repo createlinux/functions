@@ -1,4 +1,19 @@
 <?php
+const time_label_today = '今天';
+const time_label_yesterday = '昨天';
+const time_label_current_week = '本周';
+const time_label_previous_week = '上周';
+
+const time_label_current_month = '本月';
+
+const time_label_previous_month = '上个月';
+const time_label_current_quarter = '本季度';
+const time_label_previous_quarter = '上一个季度';
+const time_label_current_year = '本年';
+const time_label_previous_year = '去年';
+const time_label_thirty_days = '近30天';
+const time_label_ninety = '近90天';
+const time_label_half_year = '近半年';
 /**
  * 获取今天开始和结束时间
  * @return array
@@ -263,7 +278,7 @@ function get_current_datetime($dateFormat = '')
 }
 
 /**
- * 根据开始时间和结束时间获取环比时间断
+ * 根据开始时间和结束时间获取环比时间段
  * @param $startTime
  * @param $endTime
  * @return array
