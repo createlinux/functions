@@ -236,4 +236,3 @@ function get_prev_datetime($startTime, $endTime)
         'end_time' => $prevEndTime
     ];
 }
-
