@@ -17,22 +17,20 @@ class Basic
 
     /**
      * @param int $scale
-     * @param ...$number
+     * @param ...$digits
      * @return int|float|string
      * @throws Exception
      */
-    public static function add(int $scale, array|int|float ...$number): int|float|string
+    public static function add(int $scale, array|int|float ...$digits): int|float|string
     {
         self::checkExtension();
-        $numbers = func_get_args();
+        $numbers = $digits;
         $result = 0;
         foreach ($numbers as $index => $number) {
             if (!is_numeric($number) && !is_array($number)) {
                 throw new InvalidArgumentException("add(): wrong args!");
             }
-            if ($index === 0) {
-                continue;
-            }
+
             if (is_array($number)) {
                 foreach ($number as $childNumber) {
                     if (!is_numeric($childNumber)) {
@@ -47,18 +45,16 @@ class Basic
         return $result;
     }
 
-    public static function mul(int $scale, array|int|float ...$number): int|float|string
+    public static function mul(int $scale, array|int|float ...$digits): int|float|string
     {
         self::checkExtension();
-        $numbers = func_get_args();
+        $numbers = $digits;
         $result = 1;
         foreach ($numbers as $index => $number) {
             if (!is_numeric($number) && !is_array($number)) {
                 throw new InvalidArgumentException("mul(): wrong args!");
             }
-            if ($index === 0) {
-                continue;
-            }
+
             if (is_array($number)) {
                 foreach ($number as $childNumber) {
                     if (!is_numeric($childNumber)) {
@@ -74,10 +70,17 @@ class Basic
         return $result;
     }
 
+    protected static function mustGreaterThanZero($number)
+    {
+        if ($number <= 0) {
+            throw new InvalidArgumentException("number must greater than zero");
+        }
+    }
+
     /**
      * @throws Exception
      */
-    public static function div(int $scale, int|float ...$digits)
+    public static function div(int $scale, int|float|array ...$digits)
     {
         self::checkExtension();
         $numbers = $digits;
@@ -92,33 +95,39 @@ class Basic
                 continue;
             }
 
-            if ($number <= 0) {
-                throw new InvalidArgumentException("number must greater than zero");
-            }
+            if (is_array($number)) {
+                foreach ($number as $childNumber) {
+                    if (!is_numeric($childNumber)) {
+                        throw new InvalidArgumentException("mul(): wrong args!");
+                    }
+                    self::mustGreaterThanZero($childNumber);
+                    $result = bcdiv($result, $childNumber, $scale);
+                }
+            } else {
+                self::mustGreaterThanZero($number);
+                $result = bcdiv($result, $number, $scale);
 
-            $result = bcdiv($result, $number, $scale);
+            }
         }
         return $result;
     }
 
     /**
      * @param int $scale
-     * @param array<int|float>|int|float ...$number
+     * @param array<int|float>|int|float ...$digits
      * @return int|float|string
      * @throws Exception
      */
-    public static function sub(int $scale, array|int|float ...$number): int|float|string
+    public static function sub(int $scale, array|int|float ...$digits): int|float|string
     {
         self::checkExtension();
-        $numbers = func_get_args();
+        $numbers = $digits;
         $result = 0;
         foreach ($numbers as $index => &$number) {
             if (!is_numeric($number) && !is_array($number)) {
                 throw new InvalidArgumentException("sub(): wrong args!");
             }
-            if ($index === 0) {
-                continue;
-            }
+
             if (!is_array($number)) {
                 $secondNumber = $index === 1 ? $number : -($number);
                 $result = bcadd($result, $secondNumber, $scale);

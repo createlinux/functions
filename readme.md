@@ -10,8 +10,7 @@
  */
 Createlinux\Helper\Math\Basic::add(int $scale,[2,3,4,5],4,4.8,95);
 Createlinux\Helper\Math\Basic::sub(int $scale,[2,3,4,5],4,4.8,95);
-//除法还没有实现
-//Createlinux\Helper\Math\Basic::div(int $scale,[2,3,4,5],4,4.8,95);
+Createlinux\Helper\Math\Basic::div(int $scale,[2,3,4,5],4,4.8,95);
 Createlinux\Helper\Math\Basic::mul(int $scale,[2,3,4,5],4,4.8,95);
 ```
 
