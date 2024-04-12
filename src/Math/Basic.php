@@ -33,9 +33,7 @@ class Basic
 
             if (is_array($number)) {
                 foreach ($number as $childNumber) {
-                    if (!is_numeric($childNumber)) {
-                        throw new InvalidArgumentException("add(): wrong args!");
-                    }
+                    self::checkIsNumber($childNumber);
                     $result = bcadd($result, $childNumber, $scale);
                 }
             } else {
@@ -57,9 +55,7 @@ class Basic
 
             if (is_array($number)) {
                 foreach ($number as $childNumber) {
-                    if (!is_numeric($childNumber)) {
-                        throw new InvalidArgumentException("mul(): wrong args!");
-                    }
+                    self::checkIsNumber($childNumber);
                     $result = bcmul($result, $childNumber, $scale);
                 }
             } else {
@@ -68,6 +64,13 @@ class Basic
             }
         }
         return $result;
+    }
+
+    protected static function checkIsNumber($number)
+    {
+        if (!is_numeric($number)) {
+            throw new InvalidArgumentException("item must be a number!");
+        }
     }
 
     protected static function mustGreaterThanZero($number)
@@ -97,9 +100,7 @@ class Basic
 
             if (is_array($number)) {
                 foreach ($number as $childNumber) {
-                    if (!is_numeric($childNumber)) {
-                        throw new InvalidArgumentException("mul(): wrong args!");
-                    }
+                    self::checkIsNumber($childNumber);
                     self::mustGreaterThanZero($childNumber);
                     $result = bcdiv($result, $childNumber, $scale);
                 }
@@ -133,6 +134,7 @@ class Basic
                 $result = bcadd($result, $secondNumber, $scale);
             } else {
                 foreach ($number as $childIndex => $childNumber) {
+                    self::checkIsNumber($childNumber);
                     if ($index === 1) {
                         if ($childIndex === 0) {
                             $secondNumber = $childNumber;
