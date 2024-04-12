@@ -77,20 +77,26 @@ class Basic
     /**
      * @throws Exception
      */
-    protected static function div(int $scale, array|int|float ...$number)
+    public static function div(int $scale, int|float ...$digits)
     {
         self::checkExtension();
-        $numbers = func_get_args();
-        $result = 1;
+        $numbers = $digits;
+        $result = 0;
+
         foreach ($numbers as $index => $number) {
             if (!is_numeric($number) && !is_array($number)) {
                 throw new InvalidArgumentException("div(): wrong args!");
             }
             if ($index === 0) {
+                $result = $number;
                 continue;
             }
 
-            //TODO 除法
+            if ($number <= 0) {
+                throw new InvalidArgumentException("number must greater than zero");
+            }
+
+            $result = bcdiv($result, $number, $scale);
         }
         return $result;
     }
@@ -113,18 +119,18 @@ class Basic
             if ($index === 0) {
                 continue;
             }
-            if(!is_array($number)){
+            if (!is_array($number)) {
                 $secondNumber = $index === 1 ? $number : -($number);
                 $result = bcadd($result, $secondNumber, $scale);
-            }else{
-                foreach ($number as $childIndex => $childNumber){
-                    if($index === 1){
-                        if($childIndex === 0){
+            } else {
+                foreach ($number as $childIndex => $childNumber) {
+                    if ($index === 1) {
+                        if ($childIndex === 0) {
                             $secondNumber = $childNumber;
-                        }else{
+                        } else {
                             $secondNumber = -($childNumber);
                         }
-                    }else{
+                    } else {
                         $secondNumber = -($childNumber);
                     }
 
